@@ -23,7 +23,7 @@ public class AddTrainingActivity extends AppCompatActivity {
     public Button addExerciseButton;
     public EditText trainingName;
     private EditText exercise;
-    private Button saveTrainingButton , experimental; //TEST ZAPISU -- experimental do usunięcia później
+    private Button saveTrainingButton;
     private int exerciseId;
     private int trainingId;
     private SharedPreferences data;
@@ -45,7 +45,6 @@ public class AddTrainingActivity extends AppCompatActivity {
         linearLayout = (LinearLayout) findViewById(R.id.linearLayoutInnerId);
         addExerciseButton = (Button) findViewById(R.id.addExerciseButton);
         saveTrainingButton = (Button) findViewById(R.id.saveTrainingButton);
-        experimental = (Button) findViewById(R.id.experimental); //TEST ZAPISU -- do usunięcia później
         scrollView = (ScrollView) findViewById(R.id.scrollViewId);
         trainingName = (EditText) findViewById(R.id.trainingName);
         data = getSharedPreferences("training" + trainingId, Context.MODE_PRIVATE);
@@ -61,11 +60,9 @@ public class AddTrainingActivity extends AppCompatActivity {
         exercise.setInputType(4001); // 61 - code for textPersonName
         linearLayout.removeView(addExerciseButton);
         linearLayout.removeView(saveTrainingButton);
-        linearLayout.removeView(experimental); //TEST ZAPISU -- do usunięcia później
         linearLayout.addView(exercise);
         linearLayout.addView(addExerciseButton);
         linearLayout.addView(saveTrainingButton);
-        linearLayout.addView(experimental); //TEST ZAPISU -- do usunięcia później
         exercise.requestFocus();
         exerciseId++;
         // TODO: Ustawić scrollView aby przycisk addExerciseButton był zawsze widoczny nad klawiaturą
@@ -84,10 +81,12 @@ public class AddTrainingActivity extends AppCompatActivity {
         } catch (Exception e){
             Log.i("throw", e.toString());
         }
+        Intent intent = new Intent(AddTrainingActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
 
-    //TEST ZAPISU -- do usunięcia później
+    //ZAPIS - do przeklejenia
     public void showMeEverything(View view) {
         trainingName.setText(data.getString("trainingname", "empty"));
         for (int i = 1; i< exerciseId ; i++){
@@ -112,9 +111,6 @@ public class AddTrainingActivity extends AppCompatActivity {
                 .setNegativeButton("Zapisz i Wyjdź", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         saveExerciseButtonClick(scrollView);
-
-                        Intent intent = new Intent(AddTrainingActivity.this, MainActivity.class);
-                        startActivity(intent);
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
