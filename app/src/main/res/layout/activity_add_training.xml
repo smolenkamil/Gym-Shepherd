@@ -12,6 +12,7 @@
         android:id="@+id/scrollViewId"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:id="@+id/linearLayoutInnerId"
             android:layout_width="match_parent"
@@ -23,16 +24,16 @@
                 android:id="@+id/trainingName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:ems="10"
-                android:textSize="10pt"
-                android:inputType="textPersonName"
-                android:hint="Nazwa treningu"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="Nazwa treningu"
+                android:inputType="textPersonName"
+                android:textSize="10pt"
+                app:layout_constraintHorizontal_bias="0.506"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.506" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- -->
             <!-- list of exercises is generated dynamically -->
@@ -44,8 +45,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Dodaj kolejne"
-                android:onClick="addExerciseButtonClick" />
+                android:onClick="addExerciseButtonClick"
+                android:text="Dodaj kolejne"/>
+
+            <!-- Button saveTrainingButton -->
+            <Button
+                android:id="@+id/saveTrainingButton"
+                android:text="Zapisz"
+                android:onClick="saveExerciseButtonClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="30dp"/>
+
+            <Button
+                android:id="@+id/experimental"
+                android:text="Wyświetl Wszystko Co Zrobiłem"
+                android:onClick="showMeEverything"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="30dp"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
