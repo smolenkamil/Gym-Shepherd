@@ -34,10 +34,17 @@ public class AddTrainingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_training);
+        setTrainingId();
         init();
 
         addExerciseButton.performClick();
         trainingName.requestFocus();
+    }
+
+    private void setTrainingId() {
+        data = getSharedPreferences("different_values" , Context.MODE_PRIVATE);
+        trainingId = data.getInt("trainingId", 0);
+
     }
 
     private void init() {
@@ -81,8 +88,17 @@ public class AddTrainingActivity extends AppCompatActivity {
         } catch (Exception e){
             Log.i("throw", e.toString());
         }
+        saveTrainingId();
         Intent intent = new Intent(AddTrainingActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void saveTrainingId() {
+        data = getSharedPreferences("different_values" , Context.MODE_PRIVATE);
+        trainingId++;
+        dataExecutor = data.edit();
+        dataExecutor.putInt("trainingId", trainingId);
+        dataExecutor.apply();
     }
 
 
