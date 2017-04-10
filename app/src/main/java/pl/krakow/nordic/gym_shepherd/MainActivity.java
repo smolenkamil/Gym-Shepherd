@@ -1,6 +1,8 @@
 package pl.krakow.nordic.gym_shepherd;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,17 +11,46 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ScrollView scrollView;
+    private LinearLayout linearLayout;
+    private int trainingId;
+    private SharedPreferences data;
+    private Button training;
 
-    //kamilBranch
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayoutMain);
+        scrollView = (ScrollView) findViewById(R.id.scrollViewMain);
+        getTrainingId();
+        createTrainingButtons(scrollView);
+
+    }
+
+    private void createTrainingButtons(View view) {
+        for(int i=0; i<trainingId; i++) {
+            data = getSharedPreferences("training" + i, Context.MODE_PRIVATE);
+            training = new Button(this);
+            training.setText(data.getString("trainingname", "empty"));
+            linearLayout.addView(training);
+            training.requestFocus();
+        }
+    }
+
+    private void getTrainingId() {
+        data = getSharedPreferences("different_values" , Context.MODE_PRIVATE);
+        trainingId = data.getInt("trainingId", 0);
     }
 
     public void addTrainingFABClick(View view) {
