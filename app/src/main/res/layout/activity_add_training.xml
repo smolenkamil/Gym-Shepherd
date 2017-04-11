@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayoutMainId"
@@ -47,17 +47,17 @@
                 android:layout_gravity="center"
                 android:onClick="addExerciseButtonClick"
                 android:text="Dodaj kolejne"/>
-
-            <!-- Button saveTrainingButton -->
-            <Button
-                android:id="@+id/saveTrainingButton"
-                android:text="Zapisz"
-                android:onClick="saveExerciseButtonClick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_margin="30dp"/>
-
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <!-- Button saveTrainingButton -->
+    <Button
+        android:id="@+id/saveTrainingButton"
+        android:text="Zapisz"
+        android:onClick="saveExerciseButtonClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="30dp"/>
+</RelativeLayout>
