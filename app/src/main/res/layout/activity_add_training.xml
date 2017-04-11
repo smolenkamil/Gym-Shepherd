@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayoutMainId"
+    android:weightSum="1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,13 +10,14 @@
 
     <ScrollView
         android:id="@+id/scrollViewId"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/linearLayoutInnerId"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <!-- training name EditText -->
@@ -50,14 +51,28 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Button saveTrainingButton -->
-    <Button
-        android:id="@+id/saveTrainingButton"
-        android:text="Zapisz"
-        android:onClick="saveExerciseButtonClick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="30dp"/>
-</RelativeLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Button discardTrainingButton -->
+        <Button
+            android:id="@+id/discardTrainingButton"
+            android:layout_weight="1"
+            android:text="Odrzuć"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="discardExerciseButtonClick" />
+
+        <!-- Button saveTrainingButton -->
+        <Button
+            android:id="@+id/saveTrainingButton"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Zapisz"
+            android:onClick="saveExerciseButtonClick" />
+    </LinearLayout>
+</LinearLayout>
