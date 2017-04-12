@@ -64,7 +64,7 @@
             android:text="Odrzuć"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:onClick="discardExerciseButtonClick" />
+            android:onClick="discardTrainingButtonClick" />
 
         <!-- Button saveTrainingButton -->
         <Button
@@ -73,6 +73,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Zapisz"
-            android:onClick="saveExerciseButtonClick" />
+            android:onClick="saveTrainingButtonClick" />
     </LinearLayout>
 </LinearLayout>
