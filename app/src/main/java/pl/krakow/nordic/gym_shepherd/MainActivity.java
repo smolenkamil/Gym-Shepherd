@@ -1,6 +1,7 @@
 package pl.krakow.nordic.gym_shepherd;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -96,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        this.finishAffinity();
+        System.exit(0);
     }
 
     @Override
