@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private ScrollView scrollView;
@@ -29,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private int trainingId;
     private SharedPreferences data;
     private Button training;
-    private Button exitButton;
     private static boolean dontSplash = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +61,14 @@ public class MainActivity extends AppCompatActivity {
             //TODO: jesli pusty rekord 'trainingId' na wypadek usunięcia rekordu
             data = getSharedPreferences("training" + i, Context.MODE_PRIVATE);
             training = new Button(this);
+            final String id = "training" + i;
             training.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getBaseContext(), "ok", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getBaseContext(), "ok", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, TrainingActivity.class);
+                    intent.putExtra("id",id);
+                    startActivity(intent);
                 }
             });
             LinearLayout.LayoutParams parameter = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
