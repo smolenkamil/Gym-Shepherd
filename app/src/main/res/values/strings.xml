@@ -2,4 +2,7 @@
     <string name="app_name">Gym-Shepherd</string>
     <string name="action_settings">Settings</string>
     <string name="app_logo">Application Logo</string>
+    <string name="add_training">Dodaj trening</string>
+    <string name="training">Trening</string>
+    <string name="title_activity_training">TrainingActivity</string>
 </resources>
