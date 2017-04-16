@@ -15,6 +15,7 @@
             android:id="@+id/linearLayoutMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -23,9 +24,6 @@
                 android:text="Twoje treningi:"
                 android:gravity="center"
                 android:textSize="25sp"/>
-
-
-
 
 
         </LinearLayout>
