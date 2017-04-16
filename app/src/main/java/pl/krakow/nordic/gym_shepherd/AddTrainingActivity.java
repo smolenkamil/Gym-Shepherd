@@ -7,8 +7,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,15 +16,19 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddTrainingActivity extends AppCompatActivity {
-    public ScrollView scrollView;
-    public LinearLayout linearLayout;
-    public Button addExerciseButton;
-    public EditText trainingName;
-    private EditText exercise;
+    private LinearLayout linearLayout;
+    private Button addExerciseButton;
     private Button saveTrainingButton;
-    private int exerciseId;
+    private Button discardTrainingButton;
+    private EditText trainingName;
+    private List<EditText> exercisesArray;
+
     private int trainingId;
+
     private SharedPreferences data;
     private SharedPreferences.Editor dataExecutor;
 
@@ -34,83 +37,85 @@ public class AddTrainingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_training);
+        setTrainingId();
         init();
 
         addExerciseButton.performClick();
         trainingName.requestFocus();
     }
 
+    private void setTrainingId() {
+        data = getSharedPreferences("different_values", Context.MODE_PRIVATE);
+        trainingId = data.getInt("trainingId", 0);
+    }
+
     private void init() {
-        exerciseId = 1;
         linearLayout = (LinearLayout) findViewById(R.id.linearLayoutInnerId);
         addExerciseButton = (Button) findViewById(R.id.addExerciseButton);
         saveTrainingButton = (Button) findViewById(R.id.saveTrainingButton);
-        scrollView = (ScrollView) findViewById(R.id.scrollViewId);
+        discardTrainingButton = (Button) findViewById(R.id.discardTrainingButton);
+        exercisesArray = new ArrayList<>();
         trainingName = (EditText) findViewById(R.id.trainingName);
         data = getSharedPreferences("training" + trainingId, Context.MODE_PRIVATE);
         dataExecutor = data.edit();
     }
 
     public void addExerciseButtonClick(View view) {
-        exercise = new EditText(this);
-        exercise.setId(exerciseId); //set id of exercise
+        EditText exercise = new EditText(this);
         exercise.setHint("Ćwiczenie, np. Wyciskanie 3x12");
-        exercise.setLines(1);
         exercise.setMaxLines(1);
-        exercise.setInputType(4001); // 61 - code for textPersonName
+        exercise.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES); // 61 - code for textPersonName
+
         linearLayout.removeView(addExerciseButton);
-        linearLayout.removeView(saveTrainingButton);
         linearLayout.addView(exercise);
         linearLayout.addView(addExerciseButton);
-        linearLayout.addView(saveTrainingButton);
+
         exercise.requestFocus();
-        exerciseId++;
+        exercisesArray.add(exercise);
         // TODO: Ustawić scrollView aby przycisk addExerciseButton był zawsze widoczny nad klawiaturą
     }
 
 
-    public void saveExerciseButtonClick(View view) {
-        try {
-            dataExecutor.putString("trainingname", trainingName.getText().toString() );
-            for (int i = 1; i< exerciseId ; i++){
-                EditText currentEx = (EditText) findViewById(i);
-                dataExecutor.putString("exercise"+i, currentEx.getText().toString());
-            }
-            dataExecutor.apply();;
-            Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
-        } catch (Exception e){
-            Log.i("throw", e.toString());
+    public void saveTrainingButtonClick(View view) {
+        dataExecutor.putString("trainingname", trainingName.getText().toString());
+        int i = 1;
+        for (EditText exercise : exercisesArray) {
+            dataExecutor.putString("exercise" + i, exercise.getText().toString());
+            i++;
         }
+        dataExecutor.apply();
+        Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show();
+        saveTrainingId();
         Intent intent = new Intent(AddTrainingActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
+    public void discardTrainingButtonClick(View view) {
+        Intent intent = new Intent(AddTrainingActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
 
-    //ZAPIS - do przeklejenia
-    public void showMeEverything(View view) {
-        trainingName.setText(data.getString("trainingname", "empty"));
-        for (int i = 1; i< exerciseId ; i++){
-            EditText currentEx = (EditText) findViewById(i);
-            currentEx.setText(data.getString("exercise"+i, "empty"));
-        }
-
-        Toast.makeText(this, "Yeah!", Toast.LENGTH_SHORT).show();
+    private void saveTrainingId() {
+        data = getSharedPreferences("different_values" , Context.MODE_PRIVATE);
+        trainingId++;
+        dataExecutor = data.edit();
+        dataExecutor.putInt("trainingId", trainingId);
+        dataExecutor.apply();
     }
 
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
-                .setTitle("Zapis")
-                .setMessage("Napewno chcesz wyjść bez zapisu?")
-                .setPositiveButton("Tak", new DialogInterface.OnClickListener() {
+                .setTitle("Zapisz")
+                .setMessage("Zapisać wprowadzone zmiany?")
+                .setPositiveButton("Zapisz", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(AddTrainingActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        saveTrainingButton.performClick();
                     }
                 })
-                .setNegativeButton("Zapisz i Wyjdź", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Nie", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        saveExerciseButtonClick(scrollView);
+                        discardTrainingButton.performClick();
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
