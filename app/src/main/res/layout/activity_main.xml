@@ -28,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:onClick="addTrainingFABClick"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@mipmap/ic_alarm_add_black_48dp" />
+        android:layout_margin="@dimen/fab_margin" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -2,17 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:weightSum="1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="1"
     tools:context="pl.krakow.nordic.gym_shepherd.AddTrainingActivity">
 
     <ScrollView
         android:id="@+id/scrollViewId"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/linearLayoutInnerId"
@@ -52,27 +52,27 @@
     </ScrollView>
 
     <LinearLayout
-        android:layout_weight="1"
-        android:weightSum="2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:weightSum="2">
 
         <!-- Button discardTrainingButton -->
         <Button
             android:id="@+id/discardTrainingButton"
-            android:layout_weight="1"
-            android:text="Odrzuć"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:onClick="discardTrainingButtonClick" />
+            android:layout_weight="1"
+            android:onClick="discardTrainingButtonClick"
+            android:text="Odrzuć" />
 
         <!-- Button saveTrainingButton -->
         <Button
             android:id="@+id/saveTrainingButton"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Zapisz"
-            android:onClick="saveTrainingButtonClick" />
+            android:layout_weight="1"
+            android:onClick="saveTrainingButtonClick"
+            android:text="Zapisz" />
     </LinearLayout>
 </LinearLayout>

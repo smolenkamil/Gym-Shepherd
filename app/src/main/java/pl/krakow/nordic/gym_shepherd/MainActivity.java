@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             Log.i("error", e.getMessage().toString());
         }
         createTrainingButtons(scrollView);
-
     }
 
     private void createTrainingButtons(View view) {
